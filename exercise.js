@@ -1,23 +1,25 @@
-let maxnum = prompt(`please enter a max number`);
-let tries = 1;
+let todolist = [];
 
-while (isNaN(maxnum)) {
-    maxnum = prompt(`that's not a number. Please enter a number.`);
-}
+let command = prompt(`Welcome to your to do list.\nWhat would you like to do?\nChoose from "new, "list", "delete" or "quit"`);
 
-let randnum = Math.floor((Math.random() * maxnum) + 1);
+while (command !== 'quit') {
 
-let answer = prompt(`guess the random number`);
-
-while (answer != randnum) {
-    answer < randnum ? answer=prompt("The number should be higher") : answer=prompt("The number should be lower");
-    tries ++;
-
-    if (isNaN(answer)) {
-        maxnum = prompt(`that's not a number. Please enter a number.`);
-    }
-
-    else if (answer == randnum) {
-        alert(`congratulations, you found the number with ${tries} tries`)
+    if (command === `new`) {
+        let newitem = prompt(`what would you like to add to the list?`);
+        todolist[todolist.length] = newitem;
+        console.log(`"${newitem}" was added to the list.`);
+        command = prompt(`"${newitem}" has been added. What would you like to do next?\nChoose from "new, "list", "delete" or "quit"`);
+    }   else if (command === 'list') {
+        console.log(`********* TODO LIST *********`);
+        for (let i of todolist) {
+            console.log(todolist.indexOf(i)+1 + ` ${(i)}`);
+        }
+        command = prompt(`Your list is shown in the console.\nWhat would you like to do next?\nChoose from "new, "list", "delete" or "quit"`);
+    }   else if (command === `delete`) {
+        let deletewhat = prompt(`What is the number of the entry you would like to delete?`);
+        todolist.splice(deletewhat-1, 1);
+        command = prompt('The entry has been deleted. What would you like to do next?');
+    }   else {
+        command = prompt(`You can only choose "new, "list", "delete" or "quit"`);
     }
 }
